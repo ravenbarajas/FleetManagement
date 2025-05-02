@@ -71,25 +71,6 @@ function Router() {
   
   return (
     <div className="flex h-screen overflow-hidden bg-background text-foreground">
-      {/* Desktop Sidebar */}
-      <div className="hidden md:block">
-        <Sidebar />
-      </div>
-      
-      {/* Mobile Sidebar Overlay */}
-      <div 
-        className={`fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden ${sidebarOpen ? 'block' : 'hidden'}`}
-        onClick={() => setSidebarOpen(false)}
-      ></div>
-      
-      {/* Mobile Sidebar */}
-      <div 
-        className={`fixed top-0 left-0 z-50 w-64 h-screen transform transition-transform md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Sidebar isMobile onClose={() => setSidebarOpen(false)} />
-      </div>
-      
       {/* Main Content */}
       <main className="flex-1 overflow-hidden flex flex-col">
         <Header onMenuClick={toggleSidebar} />

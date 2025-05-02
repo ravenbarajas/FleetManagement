@@ -37,226 +37,32 @@ type SidebarProps = {
   onClose?: () => void;
 };
 
-type NavItemChild = {
-  title: string;
-  href: string;
-};
-
 type NavItem = {
   title: string;
   icon: React.ReactNode;
-  href?: string;
-  children?: NavItemChild[];
+  href: string;
 };
 
 const navItems: NavItem[] = [
   {
-    title: "Dashboard",
-    icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
-    href: "/",
-  },
-  {
-    title: "Fleet Management",
+    title: "Vehicle Inventory",
     icon: <Truck className="mr-2 h-4 w-4" />,
-    children: [
-      {
-        title: "Vehicle Inventory",
-        href: "/vehicles/inventory",
-      },
-      {
-        title: "Driver Performance",
-        href: "/vehicles/drivers",
-      },
-      {
-        title: "Vehicle Maintenance",
-        href: "/vehicles/maintenance",
-      },
-      {
-        title: "Fuel Consumption",
-        href: "/vehicles/fuel",
-      },
-    ],
+    href: "/vehicles/inventory",
   },
   {
-    title: "Shipment Management",
-    icon: <Package className="mr-2 h-4 w-4" />,
-    children: [
-      {
-        title: "Shipment Tracking",
-        href: "/shipments/tracking",
-      },
-      {
-        title: "Shipment Exception",
-        href: "/shipments/exceptions",
-      },
-      {
-        title: "Shipment Efficiency",
-        href: "/shipments/efficiency",
-      },
-      {
-        title: "Environmental Impact",
-        href: "/shipments/environmental",
-      },
-    ],
-  },
-  {
-    title: "Analytics",
-    icon: <BarChart className="mr-2 h-4 w-4" />,
-    children: [
-      {
-        title: "Risk Analytics",
-        href: "/analytics/risk",
-      },
-      {
-        title: "Performance Insights",
-        href: "/analytics/performance",
-      },
-      {
-        title: "Route Analytics",
-        href: "/analytics/route",
-      },
-      {
-        title: "Financial Analytics",
-        href: "/analytics/financial",
-      },
-    ],
-  },
-  {
-    title: "Route Management",
-    icon: <Map className="mr-2 h-4 w-4" />,
-    children: [
-      {
-        title: "Route Management",
-        href: "/routes/management",
-      },
-      {
-        title: "Route Optimization",
-        href: "/routes",
-      },
-      {
-        title: "Traffic Analysis",
-        href: "/routes/traffic",
-      },
-      {
-        title: "Route Insights",
-        href: "/routes/insights",
-      },
-    ],
-  },
-  {
-    title: "Order Management",
-    icon: <ShoppingCart className="mr-2 h-4 w-4" />,
-    children: [
-      {
-        title: "Order Management",
-        href: "/orders",
-      },
-      {
-        title: "Order Analytics",
-        href: "/orders/analytics",
-      },
-      {
-        title: "Order Performance",
-        href: "/orders/performance",
-      },
-      {
-        title: "Order Financials",
-        href: "/orders/financials",
-      },
-    ],
-  },
-  {
-    title: "Warehouse Management",
-    icon: <LayoutGrid className="mr-2 h-4 w-4" />,
-    children: [
-      {
-        title: "Warehouse",
-        href: "/warehouse",
-      },
-      {
-        title: "Inventory",
-        href: "/warehouse/inventory",
-      },
-      {
-        title: "Storage",
-        href: "/warehouse/storage",
-      },
-      {
-        title: "Analytics",
-        href: "/warehouse/analytics",
-      },
-    ],
-  },
-  {
-    title: "Supplier Management",
+    title: "Driver Performance",
     icon: <Users className="mr-2 h-4 w-4" />,
-    children: [
-      {
-        title: "Performance",
-        href: "/suppliers/performance",
-      },
-      {
-        title: "Directory",
-        href: "/suppliers/directory",
-      },
-      {
-        title: "Purchase Orders",
-        href: "/suppliers/orders",
-      },
-      {
-        title: "Quality Analysis",
-        href: "/suppliers/quality",
-      },
-    ],
+    href: "/vehicles/drivers",
   },
   {
-    title: "Reports",
-    icon: <Table className="mr-2 h-4 w-4" />,
-    children: [
-      {
-        title: "Recent Reports",
-        href: "/reports/recent",
-      },
-      {
-        title: "Report Templates",
-        href: "/reports/templates",
-      },
-      {
-        title: "Scheduled Reports",
-        href: "/reports/scheduled",
-      },
-      {
-        title: "Custom Report Builder",
-        href: "/reports/builder",
-      },
-    ],
-  },
-  {
-    title: "Customers",
-    icon: <UserRound className="mr-2 h-4 w-4" />,
-    children: [
-      {
-        title: "Customer Summary",
-        href: "/customers/summary",
-      },
-      {
-        title: "Customer Directory",
-        href: "/customers/directory",
-      },
-      {
-        title: "Customer Segmentation",
-        href: "/customers/segmentation",
-      },
-      {
-        title: "Customer Satisfaction",
-        href: "/customers/satisfaction",
-      },
-    ],
-  },
-  {
-    title: "Settings",
+    title: "Vehicle Maintenance",
     icon: <Settings className="mr-2 h-4 w-4" />,
-    href: "/settings",
+    href: "/vehicles/maintenance",
+  },
+  {
+    title: "Fuel Consumption",
+    icon: <BarChart className="mr-2 h-4 w-4" />,
+    href: "/vehicles/fuel",
   },
 ];
 
@@ -329,7 +135,6 @@ export default function Sidebar({ isMobile, onClose }: SidebarProps) {
            href === '/orders/financials';
   };
   
-  // Check if the path is for Shipment Management section
   const isShipmentLink = (href: string) => {
     return href === '/shipments' ||
            href === '/shipments/tracking' ||
@@ -364,70 +169,28 @@ export default function Sidebar({ isMobile, onClose }: SidebarProps) {
       </div>
       
       <nav className="flex-1 overflow-y-auto">
-        <ul className="p-2">
-          {navItems.map((item, index) => (
-            <li key={item.href || index} className="mb-1">
-              {item.children ? (
-                <Accordion type="single" collapsible className="border-none shadow-none">
-                  <AccordionItem value={`item-${index}`} className="border-none">
-                    <AccordionTrigger 
-                      className={cn(
-                        "flex justify-between items-center px-4 py-2 text-sm font-medium rounded-md hover:bg-muted no-underline",
-                        "data-[state=open]:text-primary data-[state=open]:bg-muted/40",
-                        "dark:text-white dark:hover:bg-muted/20 dark:data-[state=open]:bg-muted/30",
-                        item.children.some(child => isPathActive(child.href)) 
-                          ? "text-primary font-medium dark:text-primary-foreground" 
-                          : ""
-                      )}
-                    >
-                      <div className="flex items-center">
-                        {item.icon}
-                        <span className="text-left">{item.title}</span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pt-1 pb-0 px-0">
-                      <ul className="pl-6 space-y-1">
-                        {item.children.map((child) => (
-                          <li key={child.href}>
-                            <Link
-                              href={child.href}
-                              onClick={(e) => {
-                                if (isOrderLink(child.href) || isShipmentLink(child.href)) {
-                                  handleSpecialNavigation(e, child.href);
-                                } else if (isMobile && onClose) {
-                                  onClose();
-                                }
-                              }}
-                              className={cn(
-                                "flex items-center px-4 py-2 text-sm rounded-md",
-                                isPathActive(child.href)
-                                  ? "bg-primary text-primary-foreground dark:bg-primary dark:text-primary-foreground"
-                                  : "hover:bg-muted dark:hover:bg-muted/20 dark:text-foreground"
-                              )}
-                            >
-                              {child.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              ) : (
-                <Link
-                  href={item.href!}
-                  onClick={isMobile && onClose ? onClose : undefined}
-                  className={cn(
-                    "flex items-center px-4 py-2 text-sm font-medium rounded-md",
-                    isPathActive(item.href!)
-                      ? "bg-primary text-primary-foreground dark:bg-primary dark:text-primary-foreground"
-                      : "hover:bg-muted dark:hover:bg-muted/20 dark:text-foreground"
-                  )}
-                >
-                  {item.icon}
-                  {item.title}
-                </Link>
-              )}
+        <ul className="p-2 space-y-1">
+          {navItems.map((item) => (
+            <li key={item.href} className="mb-1">
+              <Link
+                href={item.href}
+                onClick={(e) => {
+                  if (isOrderLink(item.href) || isShipmentLink(item.href)) {
+                    handleSpecialNavigation(e, item.href);
+                  } else if (isMobile && onClose) {
+                    onClose();
+                  }
+                }}
+                className={cn(
+                  "flex items-center px-4 py-2 text-sm font-medium rounded-md",
+                  isPathActive(item.href)
+                    ? "bg-primary text-primary-foreground dark:bg-primary dark:text-primary-foreground"
+                    : "hover:bg-muted dark:hover:bg-muted/20 dark:text-foreground"
+                )}
+              >
+                {item.icon}
+                {item.title}
+              </Link>
             </li>
           ))}
         </ul>
